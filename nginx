@@ -1,4 +1,20 @@
-1.nginx安装及平滑升级
-2.lnmp的搭建
-3.nginx的优化
+##nginx安装及平滑升级
+
+1.安装依赖包gcc  openssl-devel  pcre-devel   
+2.解包，为了安全创建一个不能登录的用户nginx   useradd  -s  /sbin/nologin  nginx
+configure  --with模块   --user  --group
+3.make编译  
+4.make  install
+5.启动  /usr/local/nginx/sbin/nginx     
+
+##  -s  stop  停止服务   -s   reload  重新加载服务（要在开服务的时候执行才有效） -V 看版本
+##  工作目录：/usr/local/nginx ，里边有四个文件夹  html网页目录，sbin程序目录，conf配置文件目录，log
+
+
+平滑升级
+1.先把老的版本备份一下，备份/usr/local/nginx/sbin/nginx
+2.前三步没有变化，只是make编译一下，不要make  install
+3.在工作目录中拷贝objs/sbin/nginx   到   /usr/local/nginx/sbin/
+4.在工作目录中执行 make  upgrade  升级
+
 
