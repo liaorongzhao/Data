@@ -9,12 +9,57 @@ configure  --with模块   --user  --group
 
 ##  -s  stop  停止服务   -s   reload  重新加载服务（要在开服务的时候执行才有效） -V 看版本
 ##  工作目录：/usr/local/nginx ，里边有四个文件夹  html网页目录，sbin程序目录，conf配置文件目录，log
-
+#################################################################################
 
 平滑升级
 1.先把老的版本备份一下，备份/usr/local/nginx/sbin/nginx
 2.前三步没有变化，只是make编译一下，不要make  install
 3.在工作目录中拷贝objs/sbin/nginx   到   /usr/local/nginx/sbin/
 4.在工作目录中执行 make  upgrade  升级
+
+############################################################################
+
+访问Web页面需要进行用户认证
+
+1.修改配置文件/usr/local/nginx/conf/nginx.conf
+在server_name  下边添加两行
+auth_basic  "网页上的提示信息"
+auth_basic_user_file   "/usr/local/nginx/pass(此文件不存在需要新建的)"
+保存退出
+2.安装需要的软件包  httpd-tools
+htpasswd   -c    /usr/local/nginx/pass  tom
+输入密码
+3.重启nginx服务
+####  创建文件时加-c   后边再添加不能加  -c  
+#################################################################################
+
+虚拟主机：基于域名，ip，端口
+和httpd服务类似  一个server{} 对应一个虚拟主机
+#################################################################################
+
+SSL虚拟主机：
+该站点通过https访问
+通过私钥、证书对该站点所有数据加密
+1.生成公、私钥证书
+cd  /usr/local/nginx/  
+openssl  genrsa   >  cert.key
+openssl  req  -new   -x509  -key  cert.key  >  cert.pem
+###-x509是公钥的格式
+2.修改配置文件
+把配置文件中的加密模板的注释去掉，查看一下对应的证书文件名
+3.重启nginx服务
+4.客户端验证，客户端要修改本机的/etc/hosts文件，添加服务端的域名和ip，能够解析服务端的域名
+
+
+
+
+
+
+
+
+
+
+
+
 
 
