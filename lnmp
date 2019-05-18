@@ -1,0 +1,9 @@
+##该架构有三个服务nginx，数据库服务，解释器php-fpm服务
+1.安装需要的软件包
+nginx   需要三个依赖包gcc  openssl-devel  pcre-devel，依赖包光盘里有
+mysql   需要安装三个包：mariadb  mariadb-server  mariadb-devel
+##maria是客户端软件，用来验证用的，mariadb-server是真正的服务，数据都是存在这里的，mariadb-devel是依赖包
+php   需要三个软件包：php  php-mysql  前两个光盘里有， php-fpm需要另外下载
+##php-mysql是用来和数据库连接的，php-fpm（fastcgi process  manager）是提供服务的，即时的给网页解释
+2.启动三个服务，并设置开机自启，如果80端口被占用需要先关闭。
+3.设置防火墙和selinux
